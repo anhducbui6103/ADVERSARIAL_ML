@@ -202,3 +202,19 @@ Each notebook produces:
 - A plot comparing the baseline model and the FGSM adversarially trained model.
 - A `.pth` checkpoint file if the model-saving cell is executed.
 
+## Experimental Results
+
+The final comparison uses three baseline models: MobileNetV2, ResNet18, and EfficientNet-B0. Each model was evaluated before and after FGSM Adversarial Training using the same CIFAR-10 test set and the same FGSM epsilon values.
+
+| Model | Status | epsilon = 0 | epsilon = 2/255 | epsilon = 4/255 | epsilon = 8/255 |
+|---|---|---:|---:|---:|---:|
+| MobileNetV2 | Baseline | 93.78% | 33.51% | 22.22% | 17.51% |
+| MobileNetV2 | FGSM AT | 83.15% | 76.63% | 77.46% | 62.67% |
+| ResNet18 | Baseline | 93.52% | 13.61% | 14.50% | 19.09% |
+| ResNet18 | FGSM AT | 89.79% | 78.77% | 78.61% | 72.47% |
+| EfficientNet-B0 | Baseline | 96.61% | 12.05% | 10.53% | 10.27% |
+| EfficientNet-B0 | FGSM AT | 66.29% | 89.36% | 88.87% | 80.41% |
+
+![FGSM robustness results](figures/fgsm_results.png)
+
+The results show that all three pretrained models achieve high accuracy on clean CIFAR-10 data, but their accuracy drops sharply under FGSM attacks. After FGSM Adversarial Training, adversarial accuracy improves significantly across all models, especially at `epsilon = 8/255`. ResNet18 provides the most balanced result because it keeps relatively high clean accuracy while improving robustness under attack. EfficientNet-B0 achieves the highest adversarial accuracy after defense, but it also has the largest drop on clean data.
